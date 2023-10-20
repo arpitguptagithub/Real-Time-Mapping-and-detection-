@@ -1,0 +1,72 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY"></script>
+</head>
+<body>
+    <div id="map" style="height: 400px; width: 100%;"></div>
+    <script>
+        var map;
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: INITIAL_LATITUDE, lng: INITIAL_LONGITUDE},
+                zoom: 12
+            });
+        }
+
+        // Function to add a marker to the map
+        function addMarker(objectId, latitude, longitude) {
+            var marker = new google.maps.Marker({
+                position: {lat: latitude, lng: longitude},
+                map: map,
+                title: 'Object ' + objectId
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap"></script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Location Tracking</title>
+    <script>
+        function sendLocation() {
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function (pos) {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+
+                    // Send location data to the server
+                    fetch("/update_location", {
+                        method: "POST",
+                        body: JSON.stringify({ lat, lng }),
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            console.error("Failed to send location data.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Failed to send location data.", error);
+                    });
+                });
+            }
+        }
+
+        // Call sendLocation every 10 seconds (adjust as needed).
+        setInterval(sendLocation, 10000);
+    </script>
+</head>
+<body>
+    <h1>Real-Time Location Tracking</h1>
+    <p>This page captures your location and sends it to the server.</p>
+</body>
+</html>
