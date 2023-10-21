@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Static Map with Marker</title>
+    <style>
+      .map-container {
+        position: relative;
+        width: 800px; /* Set the width and height of your map container */
+        height: 600px;
+      }
+
+      .map-image {
+        width: 100%;
+        height: 100%;
+      }
+
+      .marker {
+        position: absolute;
+        width: 30px; /* Adjust the size of your marker */
+        height: 30px;
+        top: 50%; /* Adjust the position of your marker */
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: url('marker.png') no-repeat center center; /* Replace 'marker.png' with your marker image */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="map-container">
+      <img class="map-image" src="your_map_image.jpg" alt="Static Map Image" />
+
+      <!-- The marker element is initially hidden -->
+      <div class="marker" id="marker" style="display: none;"></div>
+    </div>
+
+    <script>
+      // Assume you have a function that detects an object and returns its coordinates
+      function objectDetected(x, y) {
+        // Display the marker at the specified coordinates
+        const marker = document.getElementById("marker");
+        marker.style.display = "block";
+        marker.style.left = x + "px";
+        marker.style.top = y + "px";
+      }
+
+      // Example: Trigger the marker display when an object is detected
+      // Replace these coordinates with your object detection results
+      objectDetected(400, 300);
+    </script>
+  </body>
+</html>

@@ -25,7 +25,7 @@ class EuclideanDistTracker:
             cy = (y + y + h) // 2
 
             # Find out if that object was detected already
-            lat , long = geocode(cx,cy)
+            # lat , long = geocode(cx,cy)
             same_object_detected = False
             for object_id, pt in self.center_points.items():
                 dist = math.hypot(cx - pt[0], cy - pt[1])
@@ -76,22 +76,25 @@ class EuclideanDistTracker:
 # Create a tracker object
 tracker = EuclideanDistTracker()
 
-@app.route("/receive_location", methods=["POST"])
-def receive_location():
-    data = request.get_json()
-    latitude = data["latitude"]
-    longitude = data["longitude"]
-    truck_center_x = data["truck_center_x"]
-    truck_center_y = data["truck_center_y"]
+# @app.route("/receive_location", methods=["POST"])
+# def receive_location():
+#     data = request.get_json()
+#     latitude = data["latitude"]
+#     longitude = data["longitude"]
+#     truck_center_x = data["truck_center_x"]
+#     truck_center_y = data["truck_center_y"]
 
-    lat, lng = tracker.geocode(truck_center_x, truck_center_y)
-    print("Latitude: {lat}, Longitude: {lng}")
-    print("Successfully received location data.")
+#     lat, lng = tracker.geocode(truck_center_x, truck_center_y)
+#     print("Latitude: {lat}, Longitude: {lng}")
+#     print("Successfully received location data.")
 
-    return jsonify({"success": True})
+#     return jsonify({"success": True})
 
 
 cap = cv2.VideoCapture("highway.mp4")
+# cap = cv2.VideoCapture(0)
+
+
 
 # Object detection from a stable camera
 object_detector = cv2.createBackgroundSubtractorMOG2(history=100, varThreshold=40)
@@ -136,5 +139,5 @@ while True:
 cap.release()
 cv2.destroyAllWindows()
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
